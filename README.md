@@ -1,10 +1,13 @@
 <h1 align="center">
-  <img alt="socket" src=".github/socket.jpg" width="35%"/>
+  <img alt="socket" src=".github/tic-tac-toe-pngrepo-com.png" width="18%"/>
 </h1>
 
 <h2 align="center">
-  🔌 Busca em profundidade - Jogo da velha - Probabilidade de melhores jogadas 🎮  
+  #️⃣ Busca em profundidade - Jogo da velha #️⃣ 
 </h2>
+<h3 align="center">
+Probabilidade de melhores jogadas 
+</h3>
 
 ## 💻 Sobre o projeto
 
@@ -18,6 +21,9 @@
 
 - Em todas possibilidades de jogadas, é demonstrado a porcentagem de vencer, perder e empatar.
 
+<h1 align="center">
+  <img alt="socket" src="https://ksvi.mff.cuni.cz/~dingle/2019-20/prog_2/tic_tac_toe.svg" width="35%"/>
+</h1>
 
 ## 🚀 Como executar o projeto
 
