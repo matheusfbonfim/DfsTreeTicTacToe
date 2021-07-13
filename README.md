@@ -17,6 +17,8 @@ Probabilidade de melhores jogadas
 
 - Toda implementação será baseada em uma aplicação de jogo da velha pré-determinada.
 
+## 🔨 Implementação
+
 - É estabelecido o uso de uma estrutura de árvore que dado um estado de posições jogadas no jogo, constroe uma árvore que consiste em todas possibilidades de jogadas a partir do estado raiz determinado.
 
 - Em todas possibilidades de jogadas, são demonstrados no terminal as porcentagens de vencer, perder e empatar.
