@@ -19,7 +19,9 @@ Probabilidade de melhores jogadas
 
 - É estabelecido o uso de uma estrutura de árvore que dado um estado de posições jogadas no jogo, constroe uma árvore que consiste em todas possibilidades de jogadas a partir do estado raiz determinado.
 
-- Em todas possibilidades de jogadas, é demonstrado a porcentagem de vencer, perder e empatar.
+- Em todas possibilidades de jogadas, são demonstrados no terminal as porcentagens de vencer, perder e empatar.
+
+- A partir de um determinado estado atual do tabuleiro, é feito uma busca em profundidade em cada possibilidade de jogada sucessora, reproduzindo a probabilidade de vitorias, derrotas e empates que cada jogada pode gerar.
 
 <h1 align="center">
   <img alt="socket" src="https://ksvi.mff.cuni.cz/~dingle/2019-20/prog_2/tic_tac_toe.svg" width="35%"/>
@@ -29,16 +31,13 @@ Probabilidade de melhores jogadas
 
    ```
    - Clone this repository:
-   $ git clone https://github.com/matheusfbonfim/game_NIM_socket
+   $ git clone https://github.com/matheusfbonfim/DFS-Tree-TicTacToe
 
    - Enter in directory:
-   $ cd game_NIM_socket/src
+   $ cd DFS-Tree-TicTacToe/src
 
-   - First, in a terminal run the server:
-   $ python3 server.py
-
-   - In another terminal run the client:
-   $ python3 client.py
+   - In a terminal, run:
+   $ python3 tictactoe.py
    ```
 
 ## Referência
