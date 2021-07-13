@@ -1,6 +1,7 @@
 import numpy as np
 
 
-list_positions = np.zeros(shape=(3, 3)) 
+list_positions = [[1, 1], [2, 0], [2, 1]]
 
-print(list_positions)
+for i in list_positions:
+    print(i)

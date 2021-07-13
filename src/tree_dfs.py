@@ -13,7 +13,7 @@ class NodeBoard:
         self.playerO_win = False    # Indica o O como vencedor
         self.empate = False         # Indica um nó empate
         self.children = []          # Nós filhos - Tabuleiros filhos 
-
+        
     # Setter - Posições jogadas no tabuleiro (Atualiza tabuleiro)
     def setPositionsPlayed(self, positions_player):
         list_positions = np.zeros(shape=(3, 3))  # [[0, 0, 0],[0, 0, 0],[0, 0, 0]]
@@ -27,20 +27,20 @@ class NodeBoard:
     # Getter - Posições vazias
     def getEmptyPositions(self):
         positions = []  # Armazena posicoes vazias
-
+        
         for i in range(3):
             for j in range(3):
                 # Verifica se a casa do tabuleiro está em branco
                 if (self.state_board[i][j] == 0):
-                    positions.append([i, j])
+                    positions.append([i, j]) # [[1,1], [2,0], [2,1]]
         return positions
 
     # Verifica se o nó é ganhador (Determina nó ganhador ou não)
     # Retorna 
-        # (0 empty, 1 X, 2 O)
+        # 1 X, 2 O
         # False - Jogo inacabado
         # "EMPATE"
-    def winner_node_check(self):
+    def node_check(self):
         board = self.state_board # Ex: [[2, 2, 1], [1, 0, 2], [0, 0, 1]]
 
         # linhas
@@ -74,13 +74,16 @@ class NodeBoard:
 # Jogador X (jogador = 0) : (jogador+1) % 2
 # Jogador O (jogador = 1) : (jogador+1) % 2
 
+#        X ,O
 token = [1, 2]
 
 def tree(node_board, jogador):
+    # Posições do nó tabuleiro 
     board = node_board.state_board
-    # print(F"\nBoard Tree: \n {board}")
-
-    ganhador = node_board.winner_node_check()
+    
+    # print(F"\nBoard Inside Tree: \n {board}")
+   
+    ganhador = node_board.node_check()
     # print(f"\n É ganhador: {ganhador}")
 
     # Teste se é um nó ganhador para retornar da recursão
@@ -100,34 +103,35 @@ def tree(node_board, jogador):
     # X -> Jogador 0 / O -> Jogador 1
     jogador_aux = jogador
     jogador = (jogador + 1) % 2
-
-    # print(f"Jogador da vez: {jogador}")
-
+    
     # Posicões das casas vazias
     possibilidades = node_board.getEmptyPositions()
-    print(f"\n\n Dentro de Tree - Possibilidade: {possibilidades}")
-
+    # print(f"\n\n Dentro de Tree - Possibilidade: {possibilidades}")
+    
     for possibilidade in possibilidades:
+        # possibilidade -> [1,1]
+
         # Demarca na posição vazia o simbolo do jogador
-        board_aux = board.copy()
-        board_aux[possibilidade[0], possibilidade[1]] = token[jogador_aux]
+        board_aux = board.copy() # [[2, 2, 1], [1, 0, 2], [0, 0, 1]]
+        board_aux[possibilidade[0], possibilidade[1]] = token[jogador_aux] # token[0] = 1
 
         # print(f"Possibilidade: {possibilidade[0]}, {possibilidade[1]}")
-        # print("\nSub - Board: \n", board_aux)
-
+        # print("\nSub - Board: \n", board_aux, '\n\n')
+        
         # Variavel para criar nova classe NodeBoard
         new_board = NodeBoard()
         new_board.setPositionsPlayed(board_aux)
 
         # Insere no tabuleiro atual como nó filho
         node_board.children.append(new_board)
-
-        print(f"\nSub - Nós dos Nós - Filhos: {new_board} \n")
-        for child in node_board.children:
-            print(child.state_board)
         
+        # print("Children:")
+        # for child in node_board.children:
+        #     print(child.state_board)
+        
+        # Recursão
         tree(new_board, jogador)
-
+    
         board[possibilidade[0], possibilidade[1]] = 0
         
 # ======================================================================
@@ -159,7 +163,7 @@ def busca_dfs(tabuleiro, player):
         node = v.pop(0)
 
         print(f"Tabuleiro Node:\n {node.state_board}")
-
+        
         if node.empate:
             empate += 1
         if node.playerX_win:
@@ -210,8 +214,8 @@ tabuleiro.setPositionsPlayed([[2, 2, 1], [1, 0, 2], [0, 0, 1]])
 # tabuleiro.setPositionsPlayed([[1, 2, 0], [0, 0, 0], [0, 0, 0]])
 
 # Tabuleiro Inicial
-t = tabuleiro.state_board
-print(t,"\n")
+# t = tabuleiro.state_board
+# print(t,"\n")
 
 # Cria a arvore
     # Tabuleiro - nó raiz
