@@ -152,6 +152,7 @@ def probability_next_moves(tabuleiro, player):
 # =================================
 # DEPTH-FIRST SEARCH (BUSCA EM PROFUNDIDADE)
 def busca_dfs(tabuleiro, player):
+
     # Contadores
     playerX_win = 0
     playerO_win = 0
