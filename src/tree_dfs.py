@@ -1,12 +1,11 @@
 import numpy as np
 
 # 0 empty, 1 X, 2 O
-# Jogador 1: 1 ->  (jogador+1) % 2
-# Jogador 2: 0 ->  (jogador+1) % 2
 
 # Classe - Nó (Tabuleiro)
 class NodeBoard:
 
+    # Construtor 
     def __init__(self):
         self.state_board = None     # Estado do tabuleiro - Mapeamento de posições
         self.playerX_win = False    # Indica o X como vencedor
@@ -35,9 +34,9 @@ class NodeBoard:
                     positions.append([i, j]) # [[1,1], [2,0], [2,1]]
         return positions
 
-    # Verifica se o nó é ganhador (Determina nó ganhador ou não)
+    # Status do nó 
     # Retorna 
-        # 1 X, 2 O
+        # 1 - X vencendor , 2 - O vencedor
         # False - Jogo inacabado
         # "EMPATE"
     def node_check(self):
@@ -71,6 +70,7 @@ class NodeBoard:
 
 # ======================================================================
 # ARVORE DE BUSCA
+
 # Jogador X (jogador = 0) : (jogador+1) % 2
 # Jogador O (jogador = 1) : (jogador+1) % 2
 
@@ -101,8 +101,8 @@ def tree(node_board, jogador):
         return ganhador
 
     # X -> Jogador 0 / O -> Jogador 1
-    jogador_aux = jogador
-    jogador = (jogador + 1) % 2
+    jogador_aux = jogador 
+    jogador = (jogador + 1) % 2 # Próximo jogador 
     
     # Posicões das casas vazias
     possibilidades = node_board.getEmptyPositions()
@@ -131,7 +131,8 @@ def tree(node_board, jogador):
         
         # Recursão
         tree(new_board, jogador)
-    
+
+        # Após a volta de recursão, retira a posição preenchida
         board[possibilidade[0], possibilidade[1]] = 0
         
 # ======================================================================
@@ -162,7 +163,7 @@ def busca_dfs(tabuleiro, player):
         # Retira o primeiro elemento
         node = v.pop(0)
 
-        print(f"Tabuleiro Node:\n {node.state_board}")
+        # print(f"Tabuleiro Node:\n {node.state_board}")
         
         if node.empate:
             empate += 1
@@ -197,19 +198,24 @@ def busca_dfs(tabuleiro, player):
     chance_empatar = round(((empate) / total) * 100, 2)
     chance_perder = round((100 - player_win_percentage - chance_empatar), 2)
 
+    print("Caso seja feito essa jogada: \n")
     return {"Chance_Ganhar": player_win_percentage,
             "Chance_Perder": chance_perder,
             "Chance_Empatar": chance_empatar}
 
-# ======================================================================
+# ======================================================
 ## TESTES
+# ======================================================
 
 # Define tabuleiro
 tabuleiro = NodeBoard()
 
-# tabuleiro.setPositionsPlayed([[2, 0, 2],[1, 0, 2],[1, 0, 1]])
-tabuleiro.setPositionsPlayed([[2, 2, 1], [1, 0, 2], [0, 0, 1]])
-# tabuleiro.setPositionsPlayed([[1, 0, 0],[0, 0, 0],[0, 0, 0]])
+# Setando posições
+
+tabuleiro.setPositionsPlayed([[1, 0, 2],[0, 0, 1],[2, 1, 2]])
+#tabuleiro.setPositionsPlayed([[2, 0, 2],[1, 0, 2],[1, 0, 1]]) # OK
+# tabuleiro.setPositionsPlayed([[2, 2, 1], [1, 0, 2], [0, 0, 1]]) # OK
+#tabuleiro.setPositionsPlayed([[1, 0, 0],[0, 0, 0],[0, 0, 0]])
 # tabuleiro.setPositionsPlayed([[0, 0, 0], [0, 0, 0], [0, 0, 0]])
 # tabuleiro.setPositionsPlayed([[1, 2, 0], [0, 0, 0], [0, 0, 0]])
 
@@ -223,17 +229,18 @@ tabuleiro.setPositionsPlayed([[2, 2, 1], [1, 0, 2], [0, 0, 1]])
         # Jogador X (jogador = 0) | Jogador O (jogador = 1) 
 tree(tabuleiro, 0) 
 
-#
+# Probabilidades
 probability_next_moves(tabuleiro, 0)
 
-# # print(tabuleiro.state_board)
-# for child in tabuleiro.children:
-#     print("++++++++++++++++++++++")
-#     print(child.state_board)
-    # for i in child.children:
-    #     print("==========================")
-    #     print(i.state_board)
 
-    # #   for j in i.children:
-    # #     print("**********************")
-    # #     print(j.state_board)
+# print(tabuleiro.state_board)
+for child in tabuleiro.children:
+    print("++++++++++++++++++++++")
+    print(child.state_board)
+    for i in child.children:
+        print("==========================")
+        print(i.state_board)
+
+        for j in i.children:
+            print("**********************")
+            print(j.state_board)
