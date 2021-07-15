@@ -14,7 +14,7 @@ import random
 import numpy as np
 import copy
 
-# Implementação para inicialização da arvore e busca em profundidade
+# Import - Inicialização da arvore e busca em profundidade
 import tree_dfs
 
 class GameConstants:
@@ -47,8 +47,8 @@ class GameConstants:
     
     fontSize = 20
 
-    #########################################3
-    # Nó raiz da arvore do jogo
+    #########################################
+    # Nó raiz
     root_node = tree_dfs.NodeBoard()
 
     # Comando para indicar a criação da arvore, dado a primeira jogada
@@ -78,8 +78,6 @@ class Game:
         
         
     def checkObjectiveState(self, gs):
-        # print(f"Check Objective -> gs:\n {gs}")
-
         # Complete line?
         for i in range(3):
             s = set(gs.grid[i, :])
@@ -130,9 +128,7 @@ class Game:
         # Check if in bounds
         if x < 0 or y < 0 or x >= GameConstants.gridCellHeight or y >= GameConstants.gridCellWidth:
             return
-
-        # print(f"\nUpdate - Segundo \n Antes de mudar, tabuleiro:\n {gs.grid}\n")
-
+            
         # Check if cell is empty
         if gs.grid[x][y] == 0:
             gs.grid[x][y] = gs.currentPlayer
@@ -146,26 +142,31 @@ class Game:
         # Add the new modified state
         self.states += [gs]
 
-        # print(f"\nUpdate - Segundo \n Depois de mudar, tabuleiro:\n {gs.grid}\n")
+        # ====================================
+        # ORÁCULO
 
-        GameConstants.root_node.children = []
-        # Raiz do tabuleiro sendo o initial state of the board
+        # Tabuleiro Atualizado
+        # print(f"\nUpdate - Depois de mudar, tabuleiro:\n {gs.grid}\n")
+        
+        # Limpando o root_node
+        GameConstants.root_node = None
+        
+        # Criando um nó raiz conforme a jogada atual
+        GameConstants.root_node = tree_dfs.NodeBoard()
+
+        # Raiz do tabuleiro sendo o estado atual do tabuleiro
         GameConstants.root_node.setPositionsPlayed(gs.grid)
 
+        #  Cria uma arvore conforme o próximo jogador que irá jogar 
         if (gs.currentPlayer == 1):
-            # Criar arvore com nó raiz definido
+            # Criar arvore com nó raiz definido e player O que irá jogar
             tree_dfs.tree(GameConstants.root_node, 1)
-            # for child in GameConstants.root_node.children:
-            #     print("++++++++++++++++++++++")
-            #     print(child.state_board)
 
         if gs.currentPlayer == 2:
-            # Criar arvore com nó raiz definido
+            # Criar arvore com nó raiz definido e player X que irá jogar
             tree_dfs.tree(GameConstants.root_node, 0)
-            # for child in GameConstants.root_node.children:
-            #     print("++++++++++++++++++++++")
-            #     print(child.state_board)
 
+        # Verifica status do jogo
         if (GameConstants.root_node.playerX_win):
             print("JOGADOR ❌ VENCEU!!")
         elif(GameConstants.root_node.playerO_win):
@@ -178,13 +179,15 @@ class Game:
                 print("================================================================")
                 print(f"\n PROBABILIDADES DE JOGADAS PARA ⭕ (Ganhar/Perder/Empatar)\n")
                 print("================================================================\n")
-
+                
+                # Dado um nó raiz (tabuleiro), faz a busca em profundidade em cada filho
                 tree_dfs.probability_next_moves(GameConstants.root_node, 1)
             elif gs.currentPlayer == 2:
                 print("================================================================")
                 print(f"\n PROBABILIDADES DE JOGADAS PARA ❌ (Ganhar/Perder/Empatar)\n")
                 print("================================================================\n")
-
+                
+                # Dado um nó raiz (tabuleiro), faz a busca em profundidade em cada filho
                 tree_dfs.probability_next_moves(GameConstants.root_node, 0)
 
 def drawGrid(screen, game):
@@ -246,8 +249,6 @@ def handleEvents(game):
             col = pos[0] // (GameConstants.screenWidth // GameConstants.gridWidth)
             row = pos[1] // (GameConstants.screenHeight // GameConstants.gridHeight)
             #print('clicked cell: {}, {}'.format(cellX, cellY))
-
-            # print("\n handleEvents - Primeiro \n")
 
             # send player action to game
             game.eventJournal.append((row, col))
