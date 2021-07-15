@@ -51,9 +51,6 @@ class GameConstants:
     # Nó raiz
     root_node = tree_dfs.NodeBoard()
 
-    # Comando para indicar a criação da arvore, dado a primeira jogada
-    command_create_tree = True
-
 
 class Game:
     class GameState:
@@ -165,7 +162,7 @@ class Game:
         if gs.currentPlayer == 2:
             # Criar arvore com nó raiz definido e player X que irá jogar
             tree_dfs.tree(GameConstants.root_node, 0)
-
+        
         # Verifica status do jogo
         if (GameConstants.root_node.playerX_win):
             print("JOGADOR ❌ VENCEU!!")
