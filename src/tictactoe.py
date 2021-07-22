@@ -174,14 +174,14 @@ class Game:
             # Mostra as possibilidades para o proximo jogador
             if gs.currentPlayer == 1:
                 print("================================================================")
-                print(f"\n PROBABILIDADES DE JOGADAS PARA O (Ganhar/Perder/Empatar)\n")
+                print(f"\n PROBABILIDADES DE JOGADAS PARA 2 O (Ganhar/Perder/Empatar)\n")
                 print("================================================================\n")
                 
                 # Dado um nó raiz (tabuleiro), faz a busca em profundidade em cada filho
                 tree_dfs.probability_next_moves(GameConstants.root_node, 1)
             elif gs.currentPlayer == 2:
                 print("================================================================")
-                print(f"\n PROBABILIDADES DE JOGADAS PARA X (Ganhar/Perder/Empatar)\n")
+                print(f"\n PROBABILIDADES DE JOGADAS PARA 1 X (Ganhar/Perder/Empatar)\n")
                 print("================================================================\n")
                 
                 # Dado um nó raiz (tabuleiro), faz a busca em profundidade em cada filho
