@@ -165,23 +165,23 @@ class Game:
         
         # Verifica status do jogo
         if (GameConstants.root_node.playerX_win):
-            print("JOGADOR ❌ VENCEU!!")
+            print("JOGADOR X VENCEU!!")
         elif(GameConstants.root_node.playerO_win):
-            print("JOGADOR ⭕ VENCEU!!")
+            print("JOGADOR O VENCEU!!")
         elif(GameConstants.root_node.empate):
             print("EMPATOU!!")
         else:
             # Mostra as possibilidades para o proximo jogador
             if gs.currentPlayer == 1:
                 print("================================================================")
-                print(f"\n PROBABILIDADES DE JOGADAS PARA ⭕ (Ganhar/Perder/Empatar)\n")
+                print(f"\n PROBABILIDADES DE JOGADAS PARA O (Ganhar/Perder/Empatar)\n")
                 print("================================================================\n")
                 
                 # Dado um nó raiz (tabuleiro), faz a busca em profundidade em cada filho
                 tree_dfs.probability_next_moves(GameConstants.root_node, 1)
             elif gs.currentPlayer == 2:
                 print("================================================================")
-                print(f"\n PROBABILIDADES DE JOGADAS PARA ❌ (Ganhar/Perder/Empatar)\n")
+                print(f"\n PROBABILIDADES DE JOGADAS PARA X (Ganhar/Perder/Empatar)\n")
                 print("================================================================\n")
                 
                 # Dado um nó raiz (tabuleiro), faz a busca em profundidade em cada filho
